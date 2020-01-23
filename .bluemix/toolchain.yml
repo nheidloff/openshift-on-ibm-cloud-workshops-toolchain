@@ -26,8 +26,7 @@ toolchain:
       $ref: "#/messages/template.gettingStarted"
 services:
   repo:
-    service_id: >
-      $env.source_provider ? $env.source_provider : 'hostedgit'
+    service_id: 'github'
     parameters:
       repo_name: 'openshift-on-ibm-cloud-workshops-{{timestamp}}'
       repo_url: 'https://github.com/IBM/openshift-on-ibm-cloud-workshops'
