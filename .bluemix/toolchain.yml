@@ -3,11 +3,11 @@ messages:
   $i18n: locales.yml
 template:
   name:
-    $ref: "#/messages/template.name"
+    $ref: "openshift-on-ibm-cloud-workshops-toolchain"
   description:
-    $ref: "#/messages/template.description"
-  header: '![](toolchain.svg?localize)'
-  icon: secure-lock-kubernetes.svg
+    $ref: "openshift-on-ibm-cloud-workshops-toolchain"
+  header: ''
+  icon: ''
   required:
     - build
     - repo
@@ -20,7 +20,7 @@ template:
         "(" + $env.repository +
           "/tree/" + $env.branch + ")"
 toolchain:
-  name: 'kube-toolchain-{{timestamp}}'
+  name: 'openshift-on-ibm-cloud-workshops-{{timestamp}}'
   template:
     getting_started:
       $ref: "#/messages/template.gettingStarted"
