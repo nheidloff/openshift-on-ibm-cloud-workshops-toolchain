@@ -1,6 +1,7 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema#",
-    "messages": {        
+    "messages": {
+        "$i18n": "locales.yml"
     },
     "title": {
         "$ref": "#/messages/deploy.title"
