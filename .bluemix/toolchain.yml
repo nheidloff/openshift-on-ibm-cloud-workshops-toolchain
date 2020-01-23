@@ -31,7 +31,7 @@ services:
       repo_name: 'openshift-on-ibm-cloud-workshops-{{timestamp}}'
       repo_url: 'https://github.com/IBM/openshift-on-ibm-cloud-workshops'
       source_repo_url: 'https://github.com/IBM/openshift-on-ibm-cloud-workshops'
-      type: 'existing'
+      type: 'clone'
       has_issues: false
       enable_traceability: true
   build:
