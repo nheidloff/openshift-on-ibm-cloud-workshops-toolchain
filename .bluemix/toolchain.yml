@@ -33,6 +33,7 @@ services:
       source_repo_url: 'https://github.com/IBM/openshift-on-ibm-cloud-workshops'
       type: 'clone'
       has_issues: false
+      is_private: false
       enable_traceability: true
   build:
     service_id: pipeline
