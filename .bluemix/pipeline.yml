@@ -76,17 +76,4 @@ stages:
     build_type: shell
     script: |+
       #!/bin/bash
-
       echo nik1
-      echo $CLOUD_API_KEY
-      echo $PROD_CLUSTER_NAME
-      echo $PROD_REGION_ID
-      echo nik2
-
-      ibmcloud config --locale en_US
-      ibmcloud login --apikey ${CLOUD_API_KEY} -r $PROD_REGION_ID
-      $(ibmcloud ks cluster config --cluster "${PROD_CLUSTER_NAME}" --export);
-
-      oc login -u apikey -p "${CLOUD_API_KEY}"
-
-      oc new-project cloud-native-starter
