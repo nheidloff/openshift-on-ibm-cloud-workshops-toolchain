@@ -1,79 +1,107 @@
 ---
-defaultBaseImageVersion: latest
-properties:
-- name: IBM_CLOUD_API_KEY
-  value: ${CLOUD_API_KEY}
-  type: secure
-- name: PROD_CLUSTER_NAME
-  value: ${PROD_CLUSTER_NAME}
-  type: text
-- name: PROD_REGION_ID
-  value: ${PROD_REGION_ID}
-  type: text
-stages:
-- name: FETCH
-  inputs:
-  - type: git
-    branch: master
-    service: ${GIT_REPO}    
-  triggers:
-  - type: commit
+  defaultBaseImageVersion: latest
   properties:
-  - name: IMAGE_NAME
-    value: ${APP_NAME}
+  - name: IBM_CLOUD_API_KEY
+    value: ${CLOUD_API_KEY}
+    type: secure
+  - name: PROD_CLUSTER_NAME
+    value: ${PROD_CLUSTER_NAME}
     type: text
-  jobs:
-  - name: Fetch code
-    type: builder
-    artifact_dir: ''
-    build_type: shell
-    script: |+
-      #!/bin/bash
-      # set -x
+  - name: PROD_REGION_ID
+    value: ${PROD_REGION_ID}
+    type: text
+  stages:
+  - name: FETCH
+    inputs:
+    - type: git
+      branch: master
+      service: ${GIT_REPO}    
+    triggers:
+    - type: commit
+    properties:
+    - name: IMAGE_NAME
+      value: ${APP_NAME}
+      type: text
+    jobs:
+    - name: Fetch code
+      type: builder
+      artifact_dir: ''
+      build_type: shell
+      script: |+
+        #!/bin/bash
+        # set -x
+  
+        # Git repo cloned at $WORKING_DIR, copy into $ARCHIVE_DIR
+        mkdir -p $ARCHIVE_DIR
+        cp -R -n ./ $ARCHIVE_DIR/ || true
+  
+        # Record git info
+        echo "GIT_URL=${GIT_URL}" >> $ARCHIVE_DIR/build.properties
+        echo "GIT_BRANCH=${GIT_BRANCH}" >> $ARCHIVE_DIR/build.properties
+        echo "GIT_COMMIT=${GIT_COMMIT}" >> $ARCHIVE_DIR/build.properties
+        echo "SOURCE_BUILD_NUMBER=${BUILD_NUMBER}" >> $ARCHIVE_DIR/build.properties
+        cat $ARCHIVE_DIR/build.properties
+  
+        # check if doi is integrated in this toolchain
+        if jq -e '.services[] | select(.service_id=="draservicebroker")' _toolchain.json; then
+          # Record build information
+          ibmcloud login --apikey ${IBM_CLOUD_API_KEY} --no-region
+          ibmcloud doi publishbuildrecord --branch ${GIT_BRANCH} --repositoryurl ${GIT_URL} --commitid ${GIT_COMMIT} \
+            --buildnumber ${BUILD_NUMBER} --logicalappname ${IMAGE_NAME} --status pass
+        fi
+  - name: CONTAINERIZE
+    properties:
+    - name: buildprops
+      value: build.properties
+      type: file
+    - name: DOCKER_ROOT
+      value: 2-deploying-to-openshift
+      type: text
+    - name: DOCKER_FILE
+      value: Dockerfile
+      type: text
+    - name: PIPELINE_IMAGE_URL
+      value: undefined
+      type: text
+    inputs:
+    - type: job
+      stage: FETCH
+      job: Fetch code
+    triggers:
+    - type: stage
+    jobs:
+    - name: Check dockerfile
+      type: tester
+      script: |-
+        #!/bin/bash
+        # uncomment to debug the script
+        # set -x
+        # copy the script below into your app code repo (e.g. ./scripts/check_dockerfile.sh) and 'source' it from your pipeline job
+        #    source ./scripts/check_prebuild.sh
+        # alternatively, you can source it from online script:
+        #    source <(curl -sSL "https://raw.githubusercontent.com/open-toolchain/commons/master/scripts/check_dockerfile.sh")
+        # ------------------
+        # source: https://raw.githubusercontent.com/open-toolchain/commons/master/scripts/check_dockerfile.sh
+  
+        # This script lints Dockerfile.
+        source <(curl -sSL "https://raw.githubusercontent.com/open-toolchain/commons/master/scripts/check_dockerfile.sh")
+    - name: Login
+      type: builder
+      artifact_dir: ''
+      build_type: shell
+      script: |+
+        #!/bin/bash
+  
+        echo nik1
+        echo $CLOUD_API_KEY
+        echo $PROD_CLUSTER_NAME
+        echo $PROD_REGION_ID
+        echo nik2
+  
+        ibmcloud login --apikey ${CLOUD_API_KEY} -r $PROD_REGION_ID
+        $(ibmcloud ks cluster config --cluster "${PROD_CLUSTER_NAME}" --export);
+  
+        oc login -u apikey -p "${CLOUD_API_KEY}"
+  
+        oc new-project cloud-native-starter
 
-      # Git repo cloned at $WORKING_DIR, copy into $ARCHIVE_DIR
-      mkdir -p $ARCHIVE_DIR
-      cp -R -n ./ $ARCHIVE_DIR/ || true
-
-      # Record git info
-      echo "GIT_URL=${GIT_URL}" >> $ARCHIVE_DIR/build.properties
-      echo "GIT_BRANCH=${GIT_BRANCH}" >> $ARCHIVE_DIR/build.properties
-      echo "GIT_COMMIT=${GIT_COMMIT}" >> $ARCHIVE_DIR/build.properties
-      echo "SOURCE_BUILD_NUMBER=${BUILD_NUMBER}" >> $ARCHIVE_DIR/build.properties
-      cat $ARCHIVE_DIR/build.properties
-
-      # check if doi is integrated in this toolchain
-      if jq -e '.services[] | select(.service_id=="draservicebroker")' _toolchain.json; then
-        # Record build information
-        ibmcloud login --apikey ${IBM_CLOUD_API_KEY} --no-region
-        ibmcloud doi publishbuildrecord --branch ${GIT_BRANCH} --repositoryurl ${GIT_URL} --commitid ${GIT_COMMIT} \
-          --buildnumber ${BUILD_NUMBER} --logicalappname ${IMAGE_NAME} --status pass
-      fi
-- name: CONTAINERIZE
-  properties:
-  - name: buildprops
-    value: build.properties
-    type: file
-  - name: DOCKER_ROOT
-    value: 2-deploying-to-openshift
-    type: text
-  - name: DOCKER_FILE
-    value: Dockerfile
-    type: text
-  - name: PIPELINE_IMAGE_URL
-    value: undefined
-    type: text
-  inputs:
-  - type: job
-    stage: FETCH
-    job: Fetch code
-  triggers:
-  - type: stage
-  jobs:
-  - name: Login
-    type: builder
-    artifact_dir: ''
-    build_type: shell
-    script: |+
-      #!/bin/bash
-      echo nik1
