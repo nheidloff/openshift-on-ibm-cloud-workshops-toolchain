@@ -2,7 +2,7 @@
   defaultBaseImageVersion: latest
   properties:
   - name: IBM_CLOUD_API_KEY
-    value: ${IBM_CLOUD_API_KEY}
+    value: ${MY_IBM_CLOUD_API_KEY}
     type: secure
   - name: PROD_CLUSTER_NAME
     value: ${PROD_CLUSTER_NAME}
@@ -93,14 +93,14 @@
         #!/bin/bash
   
         echo nik1
-        echo $IBM_CLOUD_API_KEY
+        echo $MY_IBM_CLOUD_API_KEY
         echo $PROD_CLUSTER_NAME
         echo $PROD_REGION_ID
         echo nik2
   
-        ibmcloud login --apikey ${IBM_CLOUD_API_KEY} -r $PROD_REGION_ID
+        ibmcloud login --apikey ${MY_IBM_CLOUD_API_KEY} -r $PROD_REGION_ID
         $(ibmcloud ks cluster config --cluster "${PROD_CLUSTER_NAME}" --export);
   
-        oc login -u apikey -p "${IBM_CLOUD_API_KEY}"
+        oc login -u apikey -p "${MY_IBM_CLOUD_API_KEY}"
   
         oc new-project cloud-native-starter
