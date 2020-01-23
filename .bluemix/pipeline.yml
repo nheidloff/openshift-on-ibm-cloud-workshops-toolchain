@@ -7,7 +7,7 @@ properties:
 - name: PROD_CLUSTER_NAME
   value: ${PROD_CLUSTER_NAME}
   type: text
-  - name: PROD_REGION_ID
+- name: PROD_REGION_ID
   value: ${PROD_REGION_ID}
   type: text
 stages:
