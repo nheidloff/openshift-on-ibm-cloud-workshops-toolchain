@@ -20,7 +20,7 @@ template:
         "(" + $env.repository +
           "/tree/" + $env.branch + ")"
 toolchain:
-  name: 'kube-toolchain-{{timestamp}}'
+  name: 'openshift-workshop-{{timestamp}}'
   template:
     getting_started:
       $ref: "#/messages/template.gettingStarted"
@@ -29,15 +29,15 @@ services:
     service_id: >
       $env.source_provider ? $env.source_provider : 'hostedgit'
     parameters:
-      repo_name: 'hello-containers-{{timestamp}}'
+      repo_name: 'openshift-workshop-{{timestamp}}'
       repo_url: >
         $env.type === 'link' ? 
-          $env.app_repo : 'https://github.com/open-toolchain/hello-containers'
+          $env.app_repo : 'https://github.com/IBM/openshift-on-ibm-cloud-workshops'
       source_repo_url: >
         $env.type === 'fork' || $env.type === 'clone' ? 
-          $env.app_repo : 'https://github.com/open-toolchain/hello-containers'
-      type: $env.type || 'clone'
-      has_issues: true
+          $env.app_repo : 'https://github.com/IBM/openshift-on-ibm-cloud-workshops'
+      type: $env.type || 'existing'
+      has_issues: false
       enable_traceability: true
   build:
     service_id: pipeline
@@ -66,6 +66,6 @@ form:
   pipeline:
     parameters:
       app-name: '{{services.repo.parameters.repo_name}}'
-      prod-cluster-namespace: prod
+      prod-cluster-namespace: default
     schema:
       $ref: deploy.json
