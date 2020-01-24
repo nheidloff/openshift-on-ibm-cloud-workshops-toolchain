@@ -81,26 +81,4 @@
         #!/bin/bash
         echo Start
         oc new-project cloud-native-starter || oc project cloud-native-starter;
-  - name: DEPLOY
-    properties:
-    - name: buildprops
-      value: build.properties
-      type: file
-    inputs:
-    - type: job
-      stage: CONTAINERIZE
-      job: Build on OpenShift
-    triggers:
-    - type: stage
-    jobs:
-    - name: Deploy to OpenShift
-      type: deployer
-      build_type: kubernetes
-      target:
-        region_id: ${PROD_REGION_ID}
-        api_key: ${API_KEY}
-        kubernetes_cluster: ${PROD_CLUSTER_NAME}
-      script: |-
-        #!/bin/bash
-        echo Start
----
+
