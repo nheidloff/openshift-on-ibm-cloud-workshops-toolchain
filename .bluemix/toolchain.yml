@@ -49,6 +49,7 @@ services:
           APP_NAME: '{{form.pipeline.parameters.app-name}}'
           API_KEY: '{{form.pipeline.parameters.api-key}}'
           PROD_REGION_ID: '{{form.pipeline.parameters.prod-region}}'
+          PROD_RESOURCE_GROUP: '{{form.pipeline.parameters.prod-resource-group}}'
           PROD_CLUSTER_NAME: '{{form.pipeline.parameters.prod-cluster-name}}'
         execute: true
   webide:
@@ -58,6 +59,5 @@ form:
     parameters:
       app-name: '{{services.repo.parameters.repo_name}}'
       prod-cluster-namespace: default
-      prod-cluster-resource-group: default
     schema:
       $ref: deploy.json
