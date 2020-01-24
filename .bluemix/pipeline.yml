@@ -85,14 +85,18 @@
   - name: DEPLOY
     inputs:
     - type: job
-      stage: CONTAINERIZE
-      job: Build on OpenShift
+      stage: FETCH
+      job: Fetch code
     triggers:
     - type: stage
     jobs:
     - name: Deploy to OpenShift
-      artifact_dir: ''
-      build_type: shell
+      properties:
+      - name: buildprops
+        value: build.properties
+        type: file
+      type: deployer
+      build_type: kubernetes
       target:
         region_id: ${PROD_REGION_ID}
         api_key: ${API_KEY}
