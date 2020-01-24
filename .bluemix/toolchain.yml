@@ -30,10 +30,10 @@ services:
     parameters:
       repo_name: 'openshift-on-ibm-cloud-workshops-{{timestamp}}'
       repo_url: 'https://github.com/IBM/openshift-on-ibm-cloud-workshops'
-      source_repo_url: 'https://github.com/IBM/openshift-on-ibm-cloud-workshops'
       type: 'existing'
       has_issues: false
-      enable_traceability: true
+      enable_traceability: false
+      private_repo: false
   build:
     service_id: pipeline
     parameters:
