@@ -91,5 +91,5 @@
     - type: stage
     jobs:
     - name: Build on OpenShift
---- 
+
 
