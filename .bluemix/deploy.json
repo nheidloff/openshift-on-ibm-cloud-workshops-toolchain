@@ -75,9 +75,10 @@
         },
         {
             "type": "table",
-            "columnCount": 7,
+            "columnCount": 3,
             "widths": ["50%", "3%", "47%"],
-            "items": [{
+            "items": [
+                {
                     "type": "label",
                     "title": {
                         "$ref": "#/messages/region"
