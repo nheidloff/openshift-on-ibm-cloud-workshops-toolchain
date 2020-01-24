@@ -90,9 +90,13 @@
     triggers:
     - type: stage
     jobs:
-    - name: Build on OpenShift
+    - name: Deploy to OpenShift
       type: deployer
-      build_type: shell
+      build_type: kubernetes
+      target:
+        region_id: ${PROD_REGION_ID}
+        api_key: ${API_KEY}
+        kubernetes_cluster: ${PROD_CLUSTER_NAME}
       script: |+
         #!/bin/bash
 
