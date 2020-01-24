@@ -47,8 +47,6 @@ services:
         env:
           GIT_REPO: repo
           APP_NAME: '{{form.pipeline.parameters.app-name}}'
-          REGISTRY_REGION_ID: '{{form.pipeline.parameters.registry-region}}'
-          REGISTRY_NAMESPACE: '{{form.pipeline.parameters.registry-namespace}}'
           API_KEY: '{{form.pipeline.parameters.api-key}}'
           PROD_REGION_ID: '{{form.pipeline.parameters.prod-region}}'
           PROD_RESOURCE_GROUP: '{{form.pipeline.parameters.prod-resource-group}}'
