@@ -54,4 +54,6 @@ After this click the 'Create' button in the upper right corner.
 
 The pipeline will automatically be triggered. Click on the Delivery Pipeline icon to see the deployment status.
 
+<kbd><img src="documentation/flow7.png" /></kbd>
+
 After the pipeline has run, open the OpenShift web console to see the deployed microservice.
