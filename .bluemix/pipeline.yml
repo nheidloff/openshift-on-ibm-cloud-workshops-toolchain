@@ -70,7 +70,7 @@
     triggers:
     - type: stage
     jobs:
-    - name: Check dockerfile
+    - name: Deploy
       type: tester
       script: |-
         #!/bin/bash
