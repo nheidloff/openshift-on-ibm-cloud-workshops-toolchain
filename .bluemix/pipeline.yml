@@ -1,7 +1,7 @@
 ---
   defaultBaseImageVersion: latest
   properties:
-  - name: MY_API_KEY
+  - name: API_KEY
     value: ${API_KEY}
     type: secure
   - name: PROD_CLUSTER_NAME
@@ -74,7 +74,7 @@
       type: deployer
       target:
         region_id: ${PROD_REGION_ID}
-        api_key: ${MY_API_KEY}
+        api_key: ${API_KEY}
         kubernetes_cluster: ${PROD_CLUSTER_NAME}
       script: |-
         #!/bin/bash
