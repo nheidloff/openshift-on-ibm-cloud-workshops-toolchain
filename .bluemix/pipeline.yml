@@ -81,7 +81,7 @@
         #!/bin/bash
         echo Start
         oc new-project cloud-native-starter || oc project cloud-native-starter;
-        oc new-build --name authors --binary --strategy docker || oc start-build authors
+        #oc new-build --name authors --binary --strategy docker || oc start-build authors
   - name: DEPLOY
     inputs:
     - type: job
@@ -99,5 +99,6 @@
         kubernetes_cluster: ${PROD_CLUSTER_NAME}
       script: |+
         #!/bin/bash
+        oc new-project cloud-native-starter || oc project cloud-native-starter;
 
 
