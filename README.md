@@ -20,28 +20,38 @@ If you understand how toolchains work, you can click this button to create a too
 
 After clicking the button above, the following page will be opened. 
 
-The workshop project will be cloned to your GitHub account. If this is your first time you use this functionality, you need to grant the toolchain access to your GitHub account. Follow these [instructions](https://cloud.ibm.com/docs/services/ContinuousDelivery?topic=ContinuousDelivery-troubleshoot-cd#i-tried-to-add-the-github-tool-integration-to-my-toolchain-why-wasn-t-the-tool-integration-added-).
+If this is your first time you use this functionality, you need to grant the toolchain access to your GitHub account. In this case click the 'Authorize' button:
 
-<kbd><img src="documentation/flow1-small.png" /></kbd>
+<kbd><img src="documentation/flow1.png" /></kbd>
+
+Grant IBM-Cloud access:
+
+<kbd><img src="documentation/flow2.png" /></kbd>
+
+After this the GitHub integration will be valid:
+
+<kbd><img src="documentation/flow3.png" /></kbd>
 
 ### Step 2
 
-On the Delivery Pipeline tab create a new API key or refer to an existing one.
+On the Delivery Pipeline tab create a new API key or refer to an existing one:
 
-<kbd><img src="documentation/flow2-small.png" /></kbd>
+<kbd><img src="documentation/flow4.png" /></kbd>
 
-When creating a new key, simply click the 'OK' button.
+When creating a new key, simply click the 'OK' button:
 
-<kbd><img src="documentation/flow3-small.png" /></kbd>
+<kbd><img src="documentation/flow5.png" /></kbd>
 
 ### Step 3
 
-After the key has been defined, your Kubernetes clusters and OpenShift clusters will be displayed in the combobox. Select the right one. Make sure that you select an OpenShift cluster.
+After the key has been defined, your Kubernetes clusters and OpenShift clusters will be displayed in the combobox. Make sure that you select an OpenShift cluster.
 
-<kbd><img src="documentation/flow4-small.png" /></kbd>
+<kbd><img src="documentation/flow6.png" /></kbd>
+
+After this click the 'Create' button in the upper right corner.
 
 ### Step 4
 
-The pipeline will automatically be triggered. Click on the Delivery Pipeline to see the deployment status.
+The pipeline will automatically be triggered. Click on the Delivery Pipeline icon to see the deployment status.
 
 After the pipeline has run, open the OpenShift web console to see the deployed microservice.
