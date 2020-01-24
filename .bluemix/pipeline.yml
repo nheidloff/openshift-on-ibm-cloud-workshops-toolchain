@@ -70,8 +70,9 @@
     triggers:
     - type: stage
     jobs:
-    - name: Deploy to Kubernetes
+    - name: Build on OpenShift
       type: deployer
+      build_type: kubernetes
       target:
         region_id: ${PROD_REGION_ID}
         api_key: ${API_KEY}
@@ -97,11 +98,11 @@
     inputs:
     - type: job
       stage: CONTAINERIZE
-      job: Deploy to Kubernetes
+      job: Build on OpenShift
     triggers:
     - type: stage
     jobs:
-    - name: Deploy to Kubernetes
+    - name: Deploy to OpenShift
       type: deployer
       target:
         region_id: ${PROD_REGION_ID}
