@@ -81,9 +81,17 @@
         #!/bin/bash
         echo Start
         oc new-project cloud-native-starter || oc project cloud-native-starter;
+        oc new-build --name authors --binary --strategy docker || oc start-build --name authors --binary --strategy docker
   - name: DEPLOY
     inputs:
     - type: job
       stage: CONTAINERIZE
       job: Build on OpenShift
+    triggers:
+    - type: stage
+    jobs:
+    - name: Build on OpenShift
+      type: deployer
+      build_type: kubernetes
+--- 
 
