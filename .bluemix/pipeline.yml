@@ -81,4 +81,9 @@
         #!/bin/bash
         echo Start
         oc new-project cloud-native-starter || oc project cloud-native-starter;
+  - name: DEPLOY
+    inputs:
+    - type: job
+      stage: CONTAINERIZE
+      job: Build on OpenShift
 
