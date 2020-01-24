@@ -1,4 +1,4 @@
-# Toolchain for 'OpenShift on IBM Cloud Workshops'
+# Toolchain for Workshop 'Deploying Java Microservices to OpenShift on IBM Cloud - Lab 4'
 
 This project contains a toolchain that is run on the IBM Cloud to deploy a lab of an OpenShift workshop for Developers.
 
