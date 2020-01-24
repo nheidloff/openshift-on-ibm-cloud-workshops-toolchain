@@ -78,6 +78,35 @@
         kubernetes_cluster: ${PROD_CLUSTER_NAME}
       script: |-
         #!/bin/bash
-        echo test
-        oc new-project cloud-native-starter
-        
+        echo Start
+        oc new-project cloud-native-starter || oc project cloud-native-starter;
+  - name: DEPLOY
+      properties:
+      - name: buildprops
+        value: build.properties
+        type: file
+      - name: DOCKER_ROOT
+        value: 2-deploying-to-openshift
+        type: text
+      - name: DOCKER_FILE
+        value: Dockerfile
+        type: text
+      - name: PIPELINE_IMAGE_URL
+        value: undefined
+        type: text
+      inputs:
+      - type: job
+        stage: CONTAINERIZE
+        job: Deploy to Kubernetes
+      triggers:
+      - type: stage
+      jobs:
+      - name: Deploy to Kubernetes
+        type: deployer
+        target:
+          region_id: ${PROD_REGION_ID}
+          api_key: ${API_KEY}
+          kubernetes_cluster: ${PROD_CLUSTER_NAME}
+        script: |-
+          #!/bin/bash
+          echo Start
