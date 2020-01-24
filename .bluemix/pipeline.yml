@@ -83,6 +83,10 @@
         oc new-project cloud-native-starter || oc project cloud-native-starter;
         #oc new-build --name authors --binary --strategy docker || oc start-build authors
   - name: DEPLOY
+    properties:
+    - name: buildprops
+      value: build.properties
+      type: file
     inputs:
     - type: job
       stage: FETCH
@@ -91,10 +95,6 @@
     - type: stage
     jobs:
     - name: Deploy to OpenShift
-      properties:
-      - name: buildprops
-        value: build.properties
-        type: file
       type: deployer
       build_type: kubernetes
       target:
