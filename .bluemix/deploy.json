@@ -76,13 +76,14 @@
         {
             "type": "table",
             "columnCount": 7,
-            "widths": ["24%", "2%", "24%", "3%", "23%", "1%", "23%"],
+            "widths": ["45%", "5%", "45%", "5%"],
             "items": [{
                     "type": "label",
                     "title": {
                         "$ref": "#/messages/region"
                     }
-                }, {
+                }, 
+                {
                     "type": "label",
                     "title": ""
                 },
@@ -91,22 +92,16 @@
                     "title": {
                         "$ref": "#/messages/deploy.cluster"
                     }
-                }, {
+                }, 
+                {
                     "type": "label",
                     "title": ""
                 },
                 {
                     "type": "select",
                     "key": "prod-region"
-                }, {
-                    "type": "label",
-                    "title": ""
-                },
+                }, 
                 {
-                    "type": "select",
-                    "key": "prod-resource-group",
-                    "readonly": false
-                }, {
                     "type": "label",
                     "title": ""
                 },
@@ -114,14 +109,10 @@
                     "type": "select",
                     "key": "prod-cluster-name",
                     "readonly": false
-                }, {
+                }, 
+                {
                     "type": "label",
                     "title": ""
-                },
-                {
-                    "type": "text",
-                    "key": "prod-cluster-namespace",
-                    "readonly": false
                 }
             ]
         }
