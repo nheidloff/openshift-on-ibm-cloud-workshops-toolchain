@@ -89,7 +89,5 @@
       job: Build on OpenShift
     triggers:
     - type: stage
-    jobs:
-    - name: Build on OpenShift
-
+ 
 
