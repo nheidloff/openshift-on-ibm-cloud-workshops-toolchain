@@ -58,5 +58,6 @@ form:
     parameters:
       app-name: '{{services.repo.parameters.repo_name}}'
       prod-cluster-namespace: default
+      prod-cluster-resource-group: default
     schema:
       $ref: deploy.json
