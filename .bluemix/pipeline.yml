@@ -91,14 +91,14 @@
     - type: stage
     jobs:
     - name: Deploy to OpenShift
-      type: deployer
-      build_type: kubernetes
+      artifact_dir: ''
+      build_type: shell
       target:
         region_id: ${PROD_REGION_ID}
         api_key: ${API_KEY}
         kubernetes_cluster: ${PROD_CLUSTER_NAME}
       script: |+
         #!/bin/bash
-        oc new-project cloud-native-starter || oc project cloud-native-starter;
+        #oc new-project cloud-native-starter || oc project cloud-native-starter;
 
 
