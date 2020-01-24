@@ -35,16 +35,6 @@
                 "params": ["api-key"]
             }
         },
-        "prod-resource-group": {
-            "description": {
-                "$ref": "#/messages/deploy.rg"
-            },
-            "type": "string",
-            "validator": {
-                "v-type": "resource-group",
-                "params": ["api-key"]
-            }
-        },
         "prod-cluster-name": {
             "description": {
                 "$ref": "#/messages/deploy.cluster"
@@ -56,13 +46,6 @@
                 "params": ["prod-resource-group", "prod-region"]
             }
         },
-        "prod-cluster-namespace": {
-            "description": {
-                "$ref": "#/messages/deploy.clusterNs"
-            },
-            "type": "string",
-            "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"
-        },
         "app-name": {
             "description": {
                 "$ref": "#/messages/deploy.appDescription"
@@ -71,7 +54,7 @@
             "pattern": "\\S"
         }
     },
-    "required": ["app-name", "api-key", "prod-region", "prod-resource-group", "prod-cluster-name", "prod-cluster-namespace"],
+    "required": ["app-name", "api-key", "prod-region", "prod-cluster-name"],
     "form": [{
             "type": "validator",
             "url": "/devops/validator/validator-v1.html"
@@ -106,15 +89,6 @@
                 {
                     "type": "label",
                     "title": {
-                        "$ref": "#/messages/deploy.rg"
-                    }
-                }, {
-                    "type": "label",
-                    "title": ""
-                },
-                {
-                    "type": "label",
-                    "title": {
                         "$ref": "#/messages/deploy.cluster"
                     }
                 }, {
@@ -122,11 +96,6 @@
                     "title": ""
                 },
                 {
-                    "type": "label",
-                    "title": {
-                        "$ref": "#/messages/deploy.clusterNs"
-                    }
-                }, {
                     "type": "select",
                     "key": "prod-region"
                 }, {
@@ -155,26 +124,6 @@
                     "readonly": false
                 }
             ]
-        }, {
-            "type": "table",
-            "columnCount": 1,
-            "widths": ["100%"],
-            "items": [{
-                "type": "label",
-                "title": {
-                    "$ref": "#/messages/deploy.clusterDescription"
-                }
-            }]
-        }, {
-            "type": "table",
-            "columnCount": 1,
-            "widths": ["100%"],
-            "items": [{
-                "type": "label",
-                "title": {
-                    "$ref": "#/messages/deploy.clusternsDescription"
-                }
-            }]
         }
     ]
 }
