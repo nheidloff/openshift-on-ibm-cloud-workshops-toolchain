@@ -104,10 +104,14 @@
         api_key: ${API_KEY}
         kubernetes_cluster: ${PROD_CLUSTER_NAME}
       script: |+
-        #!/bin/bash        
+        #!/bin/bash  
+        oc new-project cloud-native-starter || oc project cloud-native-starter;      
         cd 2-deploying-to-openshift/deployment
-        oc apply -f deployment.yaml
+        oc delete route authors --ignore-not-found=true
+        oc delete -f service.yaml --ignore-not-found=true
+        oc delete -f deployment.yaml --ignore-not-found=true     
         oc apply -f service.yaml
+        oc apply -f deployment.yaml
         oc expose svc/authors
         echo Open this URL to test the authors service
         echo http://$(oc get route authors -o jsonpath={.spec.host})/openapi/ui/

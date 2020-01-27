@@ -44,16 +44,26 @@ When creating a new key, simply click the 'OK' button:
 
 ### Step 3
 
-After the key has been defined, your Kubernetes clusters and OpenShift clusters will be displayed in the combobox. Make sure that you select an OpenShift cluster.
+After the key has been defined, your Kubernetes clusters and OpenShift clusters will be displayed in the combobox. Make sure that you select an OpenShift cluster:
 
 <kbd><img src="documentation/flow6.png" /></kbd>
 
-After this click the 'Create' button in the upper right corner.
+After this click the 'Create' button in the upper right corner:
 
 ### Step 4
 
-The pipeline will automatically be triggered. Click on the Delivery Pipeline icon to see the deployment status.
+The pipeline will automatically be triggered. Click on the Delivery Pipeline icon to see the deployment status:
 
 <kbd><img src="documentation/flow7.png" /></kbd>
 
-After the pipeline has run, open the OpenShift web console to see the deployed microservice.
+After the pipeline has run, open the OpenShift web console to see the deployed microservice:
+
+<kbd><img src="documentation/flow10.png" /></kbd>
+
+You can open the log of the last job to see the URL of the API explorer of the authors service:
+
+<kbd><img src="documentation/flow8.png" /></kbd>
+
+The URL opens the API explorer:
+
+<kbd><img src="documentation/flow9.jpg" /></kbd>
