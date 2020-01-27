@@ -79,9 +79,11 @@
         kubernetes_cluster: ${PROD_CLUSTER_NAME}
       script: |-
         #!/bin/bash
-        echo Start
         oc new-project cloud-native-starter || oc project cloud-native-starter;
-        #oc new-build --name authors --binary --strategy docker || oc start-build authors
+        oc delete bc authors --ignore-not-found=true
+        oc new-build --name authors --binary --strategy docker
+        cd 2-deploying-to-openshift
+        oc start-build authors --from-dir=. --wait
   - name: DEPLOY
     properties:
     - name: buildprops
@@ -102,7 +104,12 @@
         api_key: ${API_KEY}
         kubernetes_cluster: ${PROD_CLUSTER_NAME}
       script: |+
-        #!/bin/bash
-        #oc new-project cloud-native-starter || oc project cloud-native-starter;
+        #!/bin/bash        
+        cd 2-deploying-to-openshift/deployment
+        oc apply -f deployment.yaml
+        oc apply -f service.yaml
+        oc expose svc/authors
+        echo Open this URL to test the authors service
+        echo http://$(oc get route authors -o jsonpath={.spec.host})/openapi/ui/
 
 
